@@ -14,6 +14,6 @@ If you plan on running this code, not that it may not work unless run in the Doc
 To run the program, first run 'make' to compile, then run './shell' to run the shell.
 Typical Unix commands may be run. Here are some example formats of commands using piping:
 
-command1 | command2 | command3 | command4
-command1 arg1 arg2 | command2 | command3 arg1 arg2
-command1 < inputfile | command2 | command3 > outputfile
+- command1 | command2 | command3 | command4
+- command1 arg1 arg2 | command2 | command3 arg1 arg2
+- command1 < inputfile | command2 | command3 > outputfile
