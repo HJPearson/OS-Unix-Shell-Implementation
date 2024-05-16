@@ -86,52 +86,12 @@ static void file_output_redirection(struct command *pipeline)
  *              observe the layout of this structure for a variety of
  *              inputs.
  *
- * Note: this function should not return until all commands in the
- * pipeline have completed their execution.
  *
  * Return: The return status of the last command executed in the
  * pipeline.
  */
 static int dispatch_external_command(struct command *pipeline)
 {
-	/*
-	 * Note: this is where you'll start implementing the project.
-	 *
-	 * It's the only function with a "TODO".  However, if you try
-	 * and squeeze your entire external command logic into a
-	 * single routine with no helper functions, you'll quickly
-	 * find your code becomes sloppy and unmaintainable.
-	 *
-	 * It's up to *you* to structure your software cleanly.  Write
-	 * plenty of helper functions, and even start making yourself
-	 * new files if you need.
-	 *
-	 * For D1: you only need to support running a single command
-	 * (not a chain of commands in a pipeline), with no input or
-	 * output files (output to stdout only).  In other words, you
-	 * may live with the assumption that the "input_file" field in
-	 * the pipeline struct you are given is NULL, and that
-	 * "output_type" will always be COMMAND_OUTPUT_STDOUT.
-	 *
-	 * For D2: you'll extend this function to support input and
-	 * output files, as well as pipeline functionality.
-	 *
-	 * Good luck!
-	 */
-
-
-/*
-while()
-	piping (if necessary)
-	fork()
-	file redirect input (if necessary)
-	file redirect output (if necessary)
-	execvp()
-	looking for next pipe. If there is one, iterate loop again. If not, exit loop.
-
-Need both input and output redirection for piping. Do output redirection on the first pipe and input on the second one.
-functions for input and output will basically just redirect where the standard input and output files are pointing to, using dup2, like in HW quiz
-*/
 	pid_t child_id, id;
 	int status;
 	int fd[2] = {-1, -1};
@@ -179,76 +139,6 @@ functions for input and output will basically just redirect where the standard i
 		prev_fd[1] = fd[1];
 	}
 	return -1;
-
-/*
-		Output from ./parseview commands. These outputs are what will be input to dispatch_external_command.
-		I ran four commands: 'echo hello', 'history', 'echo hello >> file.txt', and 'echo hello | grep hello'.
-		The output is probably useful to understand:
-
-parseview> echo hello
-cmd = {
-        .argv = {
-                "echo", "hello", NULL,
-        },
-        .input_filename = NULL,
-        .output_type = COMMAND_OUTPUT_STDOUT,
-}
-parseview> history
-cmd = {
-        .argv = {
-                "history", NULL,
-        },
-        .input_filename = NULL,
-        .output_type = COMMAND_OUTPUT_STDOUT,
-}
-parseview> echo hello >> file.txt
-cmd = {
-        .argv = {
-                "echo", "hello", NULL,
-        },
-        .input_filename = NULL,
-        .output_type = COMMAND_OUTPUT_APPEND,
-        .output_filename = "file.txt",
-}
-parseview> echo hello | grep hello
-cmd = {
-        .argv = {
-                "echo", "hello", NULL,
-        },
-        .input_filename = NULL,
-        .output_type = COMMAND_OUTPUT_PIPE,
-        .pipe_to = &{
-                .argv = {
-                        "grep", "hello", NULL,
-                },
-                .input_filename = NULL,
-                .output_type = COMMAND_OUTPUT_STDOUT,
-        },
-}
-
-parseview> echo hello | grep hello | output.txt
-cmd = {
-        .argv = {
-                "echo", "hello", NULL,
-        },
-        .input_filename = NULL,
-        .output_type = COMMAND_OUTPUT_PIPE,
-        .pipe_to = &{
-                .argv = {
-                        "grep", "hello", NULL,
-                },
-                .input_filename = NULL,
-                .output_type = COMMAND_OUTPUT_PIPE,
-                .pipe_to = &{
-                        .argv = {
-                                "output.txt", NULL,
-                        },
-                        .input_filename = NULL,
-                        .output_type = COMMAND_OUTPUT_STDOUT,
-                },
-        },
-}
-	*/
 }
 
 /**
