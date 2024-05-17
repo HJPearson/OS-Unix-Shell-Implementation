@@ -9,7 +9,7 @@ My code focuses on the following:
 - Input/output redirection
 - Piping
 
-If you plan on running this code, not that it may not work unless run in the Docker container specified by the provided file in .devcontainer.
+If you plan on running this code, note that it may not work unless run in the Docker container specified by the provided file in .devcontainer.
 
 To run the program, first run 'make' to compile, then run './shell' to run the shell.
 Typical Unix commands may be run. Here are some example formats of commands using piping:
